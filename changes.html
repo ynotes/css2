@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+
+<HEAD>
+<TITLE>Changes</TITLE>
+<link rel="stylesheet" href="style/default.css" type="text/css">
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED.css" type="text/css">
+<link rel="prev" href="refs.html">
+<link rel="next" href="sample.html">
+<link rel="contents" href="Overview.html#minitoc">
+<link rel="CSS-properties" href="propidx.html" title="properties">
+<link rel="index" href="indexlist.html" title="index">
+<link rel="first" href="Overview.html">
+<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</HEAD>
+<BODY>
+<div class="navbar">
+<p><a href="refs.html">previous</a> &nbsp;
+<a href="sample.html">next</a> &nbsp;
+<a href="Overview.html#minitoc">contents</a> &nbsp;
+<a href="propidx.html">properties</a> &nbsp;
+<a href="indexlist.html">index</a> &nbsp;
+</div>
+<hr class="navbar">
+
+<H1><a name="q0">Appendix C. Changes</a></H1>
+<div id="toc" class="subtoc">
+
+</div>
+
+<P><em>This appendix is informative, not normative.</em></P>
+
+<P>Below are the changes relative to the second revision of CSS2
+(CSS&nbsp;2.2 [[CSS22]]). The changes between the first and the second
+revisions are listed in the <a
+href="https://www.w3.org/TR/CSS22/changes.html" >Changes section of
+CSS 2.2</a> The changes between the original CSS2 specification (see
+<a href="refs.html#ref-CSS2" rel="biblioentry" class="noxref"><span class="informref">[CSS2]</span></a>) and CSS&nbsp;2.1 (see <a href="refs.html#ref-CSS21" rel="biblioentry" class="noxref"><span class="informref">[CSS21]</span></a>) can be found in the <a
+href="http://www.w3.org/TR/CSS21/changes.html" >Changes section of
+CSS&nbsp;2.1.</a>
+
+<p>This chapter is not a complete list of changes. Minor editorial
+changes and most changes to examples are not listed here.
+
+<ul>
+
+      <li id=s.10.8.1 class=change>
+        <p>In <a href="visudet.html#leading" >“10.8.1 Leading and
+	    half-leading”</a>, replace the last paragraph as follows:
+
+	<blockquote>
+	  <p><del>The baseline of an 'inline-block' is the baseline of
+	      its last line box in the normal flow, unless it has
+	      either no in-flow line boxes or if its 'overflow'
+	      property has a computed value other than 'visible', in
+	      which case the baseline is the bottom margin edge.</del>
+
+	  <p><ins>The baseline of an 'inline-block’ whose ‘overflow’
+	      property has a computed value of ‘visible’ is the
+	      baseline of its last line box in the normal flow, unless
+	      it has no in-flow line boxes, in which case the baseline
+	      is the bottom margin edge. The baseline of an
+	      inline-block whose ‘overflow’ property has a computed
+	      value not equal to ‘visible’ is the higher of either its
+	      bottom margin edge or the baseline of its last line box
+	      in the normal flow, unless it has no in-flow line boxes,
+	      in which case its baseline is the baseline is the bottom
+	      margin edge.</ins>
+	</blockquote>
+
+	<p>This avoids an undesirable visual difference between
+	  'overflow: visible' and 'overflow: auto', in particular in
+	  the case when there is no visible scrolling mechanism,
+	  beause the height is sufficient.
+
+	
+
+</ul>
+
+<hr class="navbar">
+
+<div class="navbar">
+<p><a href="refs.html">previous</a> &nbsp;
+<a href="sample.html">next</a> &nbsp;
+<a href="Overview.html#minitoc">contents</a> &nbsp;
+<a href="propidx.html">properties</a> &nbsp;
+<a href="indexlist.html">index</a> &nbsp;
+</div>
+</BODY>
+</HTML>
+
