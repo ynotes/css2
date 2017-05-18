@@ -2,8 +2,9 @@
 <html lang="en">
 
 <head>
+<meta charset="utf-8">
 <title>Visual formatting model details</title>
-<link rel="stylesheet" href="style/default.css" type="text/css">
+<link rel="stylesheet" href="https://drafts.csswg.org/css2/style/default.css" type="text/css">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED.css" type="text/css">
 <link rel="prev" href="visuren.html">
 <link rel="next" href="visufx.html">
@@ -11,7 +12,7 @@
 <link rel="CSS-properties" href="propidx.html" title="properties">
 <link rel="index" href="indexlist.html" title="index">
 <link rel="first" href="Overview.html">
-<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js" async></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
@@ -22,6 +23,7 @@ span.insproposed,li.insproposed,div.insproposed { text-decoration:underline }
 span.delproposed,span.delcurrent,div.delcurrent { text-decoration:line-through }
 body>del,body>ins {display:block}
 </style>
+<link href="custom.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="navbar">
@@ -92,20 +94,24 @@ href="visuren.html#viewport">viewport</a> and is anchored at the
 canvas origin; it is the <a href="page.html#page-area">page area</a>
 for paged media. The 'direction' property of the initial
 containing block is the same as for the root element.
+<p class="note ynote">根元素的包含块称为初始包含块，连续文档根元素的包含块是视口区域。</p>
 </li>
 <li>For other elements, if the element's position is 'relative' or 'static',
 the containing block is formed by the content edge of the nearest
 ancestor box that is a <a href="visuren.html#block-boxes">block
 container</a> or which establishes a formatting context.
+<p class="note ynote">position: relative | static 元素，包含块是最近的祖先元素的 content 区域，这个祖先元素是一个块容器或建立了格式化上下文。</p>
 </li>
 <li>If the element has 'position: fixed', the containing block is
 established by the <a href="visuren.html#viewport">viewport</a>
 in the case of continuous media or the page area in the case of paged media.
+<p class="note ynote">position: fixed 元素，包含块是视口区域。</p>
 </li>
 <li>If the element has 'position: absolute', the containing block is
 established by the nearest ancestor with a <a href="visuren.html#propdef-position" class="noxref"><span
 class="propinst-position">'position'</span></a> of 'absolute', 'relative'
 or 'fixed', in the following way:
+<p class="note ynote">position: absolute 元素，包含块由最近的 position: relative | absolute | fixed 祖先元素 padding 区域。如果没有这样的元素，则是初始包含块。</p>
 <ol>
 <li>In the case that the ancestor is an inline element, the containing
 block is the bounding box around the padding boxes of the first and
@@ -250,6 +256,7 @@ is given by the their <a
 href="visuren.html#containing-block">containing block</a>, but may be
 shorted by the presence of <a href="visuren.html#floats">floats</a>.
 </p>
+<p class="note ynote">'width' 属性不用于 inline, non-replaced elements。</p>
 <p>Values have the following meanings:</p>
 
 <dl>
@@ -272,6 +279,7 @@ This is a change from CSS1, where the percentage width was always
 calculated with respect to the <em>content box</em> of the parent
 element.
 </span>
+<p class="note ynote">百分数基于 containing block 的 content-box 的宽。绝对定位元素是基于 containing block 的 padding-box 的宽。</p>
 </dd>
 <dt><strong>auto</strong>
 </dt>
@@ -283,6 +291,8 @@ See the sections below.
 <p>Negative values for <a href="visudet.html#propdef-width" class="noxref"><span class="propinst-width">'width'</span></a> are
 illegal. 
 </p>
+<p class="note ynote">不能是负值。</p>
+
 <div class="example"><P style="display:none">Example(s):</P><p>
 For example, the following rule fixes the content width of paragraphs
 at 100 pixels:</p>
@@ -342,6 +352,7 @@ class="propinst-margin-left">'margin-left'</span></a> or <a href="box.html#propd
 class="propinst-margin-right">'margin-right'</span></a> becomes a used
 value of '0'.
 </p>
+<p class="note ynote">inline, non-replaced elements, 不应用 'width' 属性。'margin-left' 和 'margin-right' 计算值为 'auto' 时，它们的应用值为 0。</p>
 
 <h3>10.3.2 <a name="inline-replaced-width">Inline, replaced elements</a></h3>
 
@@ -349,6 +360,7 @@ value of '0'.
 class="propinst-margin-left">'margin-left'</span></a> or <a href="box.html#propdef-margin-right" class="noxref"><span
 class="propinst-margin-right">'margin-right'</span></a> becomes a used
 value of '0'.
+<p class="note ynote">'margin-left' 和 'margin-right' 计算值为 'auto' 时，它们的应用值为 0。</p>
 
 <p>If <a href="visudet.html#propdef-height" class="noxref"><span class="propinst-height">'height'</span></a> and <a href="visudet.html#propdef-width" class="noxref"><span
 class="propinst-width">'width'</span></a> both have computed values of
@@ -387,6 +399,7 @@ then the used value of <a href="visudet.html#propdef-width" class="noxref"><span
 becomes 300px. If 300px is too wide to fit the device, UAs should use
 the width of the largest rectangle that has a 2:1 ratio and fits the
 device instead.
+<p class="note ynote">'width' 计算值为 'auto' 时，使用内在尺寸。</p>
 
 
 <h3>10.3.3 <a name="blockwidth">Block-level, non-replaced elements in normal
@@ -424,6 +437,7 @@ value is calculated so as to make the equality true. If the value of
 <a href="visuren.html#propdef-direction" class="noxref"><span class="propinst-direction">'direction'</span></a> is 'rtl', this
 happens to <a href="box.html#propdef-margin-left" class="noxref"><span class="propinst-margin-left">'margin-left'</span></a> instead.
 </p>
+<p class="note ynote">如果等式任意项的值都不是 auto，并且上面等式不成立，文字方向是从左到右的文档忽略 margin-right。</p>
 <p>If there is exactly one value specified as 'auto', its used
 value follows from the equality.
 </p>
@@ -432,11 +446,13 @@ any other 'auto' values become '0' and <a href="visudet.html#propdef-width" clas
 class="propinst-width">'width'</span></a> follows from the resulting
 equality.
 </p>
+<p class="note ynote">如果 width 是 auto, 它任意项的值 auto 按 0 处理，最后让等式成立。</p>
 <p>If both <a href="box.html#propdef-margin-left" class="noxref"><span class="propinst-margin-left">'margin-left'</span></a> and
 <a href="box.html#propdef-margin-right" class="noxref"><span class="propinst-margin-right">'margin-right'</span></a> are 'auto',
 their used values are equal. This horizontally centers the element
 with respect to the edges of the containing block.
 </p>
+<p class="note ynote">如果 width 不是 auto, margin-left: auto 和 margin-right: auto 两者的应用值相等，即水平居中。</p>
 
 <h3>10.3.4 <a name="block-replaced-width">Block-level, replaced elements in normal flow</a></h3>
 
@@ -447,6 +463,8 @@ elements</a>.
 Then the rules <a href="#blockwidth">for non-replaced
 block-level elements</a> are applied to determine the margins.
 </p>
+<p class="note ynote">width 的应用值同 inline replaced elements, margin 的应用值同 non-replaced
+block-level elements。</p>
 <h3>10.3.5 <a name="float-width">Floating, non-replaced elements</a></h3>
 
 <p>If <a href="box.html#propdef-margin-left" class="noxref"><span
@@ -454,9 +472,11 @@ class="propinst-margin-left">'margin-left'</span></a>, or <a href="box.html#prop
 class="propinst-margin-right">'margin-right'</span></a> are computed as
 'auto', their used value is '0'.
 </p>
+<p class="note ynote">margin-left: auto 和 margin-right: auto 的应用值是 0。</p>
 <p>If <a href="visudet.html#propdef-width" class="noxref"><span class="propinst-width">'width'</span></a> is computed as
 'auto', the used value is the "shrink-to-fit" width.
 </p>
+<p class="note ynote">width: auto 的应用值是收缩宽度。</p>
 <p><a name="shrink-to-fit-float"></a> Calculation of the shrink-to-fit
 width is similar to calculating the width of a table cell using the
 automatic table layout algorithm. Roughly: calculate the preferred
@@ -481,6 +501,7 @@ class="propinst-margin-right">'margin-right'</span></a> are computed as
 class="propinst-width">'width'</span></a> is determined as for <a
 href="#inline-replaced-width">inline replaced elements</a>.
 </p>
+<p class="note ynote">margin-left: auto 和 margin-right: auto 的应用值是 0。width 的应用值同 inline replaced elements。</p>
 <h3>10.3.7 <a name="abs-non-replaced-width">Absolutely positioned, non-replaced elements</a></h3>
 
 <p>For the purposes of this section and the next, the term <a
@@ -977,6 +998,7 @@ fall within the content area, but leads to differently sized boxes for
 different fonts; the former would ensure authors can control
 background styling relative to the 'line-height', but leads to glyphs
 painting outside their content area.)
+<p class="note ynote">inline, non-replaced box 忽略 'height' 属性, content height 由字体决定。 </p>
 </p>
 <p class=note>Note: level 3 of CSS will probably include a property to
 select which measure of the font is used for the content height.
@@ -988,6 +1010,7 @@ class="propinst-line-height">'line-height'</span></a>. But only the <a href="vis
 class="propinst-line-height">'line-height'</span></a> is used when calculating
 the height of the line box.
 </p>
+<p class="note ynote">inline, non-replaced box 垂直方向上的 padding, border, margin 跟 line-height 无关，只有 line-height 用于计算 line box 的高。 </p>
 <p><a name="multi-font-inline-height"></a> If more than one font is
 used (this could happen when glyphs are found in different fonts), the
 height of the content area is not defined by this specification.
@@ -1005,6 +1028,7 @@ elements in normal flow and floating replaced elements</h3>
 <p>If <a href="box.html#propdef-margin-top" class="noxref"><span class="propinst-margin-top">'margin-top'</span></a>, or <a href="box.html#propdef-margin-bottom" class="noxref"><span
 class="propinst-margin-bottom">'margin-bottom'</span></a> are 'auto',
 their used value is 0.
+<p class="note ynote">'margin-top', 'margin-bottom' 为 'auto' 时, 应用值为 0。 </p>
 
 <p>If <a href="visudet.html#propdef-height" class="noxref"><span class="propinst-height">'height'</span></a> and <a href="visudet.html#propdef-width" class="noxref"><span
 class="propinst-width">'width'</span></a> both have computed values of
@@ -1030,6 +1054,7 @@ must be set to the height of the largest rectangle that has a 2:1
 ratio, has a height not greater than 150px, and has a width not
 greater than the device width.
 
+<p class="note ynote">inline, non-replaced box 忽略 'height' 属性, content area height 由字体决定。 </p>
 
 
 
@@ -1584,6 +1609,7 @@ box used for alignment is the box whose height is the 'line-height'
 (containing the box's glyphs and the half-leading on each side, see <a
 href="#inline-box-height">above</a>). For all other elements, the box
 used for alignment is the margin box.
+<p class="note ynote">下面所说的 box, 对于 inline non-replaced elements，box height 是 line-height；对于 inline other elements, box 是 margin-box。</p>
 
 <dl>
   <dt><strong>baseline</strong></dt>
@@ -1614,7 +1640,9 @@ used for alignment is the margin box.
   <dd>Raise (positive value) or lower (negative value) the box
       by this distance (a percentage of the <a href="visudet.html#propdef-line-height" class="noxref"><span
       class="propinst-line-height">'line-height'</span></a> value).
-      The value '0%' means the same as 'baseline'.</dd>
+      The value '0%' means the same as 'baseline'.
+    <p class="note ynote">百分数基于 'line-height'。'0%' 同 'baseline'，正值向上移动，负值向下移动。</p>
+      </dd>
   <dt><span class="index-inst" title="&lt;length&gt;"><a name="x24" href="syndata.html#value-def-length" class="noxref"><span
   class="value-inst-length"><strong>&lt;length&gt;
   </strong></span></a></span></dt>

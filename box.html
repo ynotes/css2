@@ -3,8 +3,9 @@
 <html lang="en">
 
 <HEAD>
+<meta charset="utf-8">
 <TITLE>Box model</TITLE>
-<link rel="stylesheet" href="style/default.css" type="text/css">
+<link rel="stylesheet" href="https://drafts.csswg.org/css2/style/default.css" type="text/css">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED.css" type="text/css">
 <link rel="prev" href="media.html">
 <link rel="next" href="visuren.html">
@@ -12,9 +13,10 @@
 <link rel="CSS-properties" href="propidx.html" title="properties">
 <link rel="index" href="indexlist.html" title="index">
 <link rel="first" href="Overview.html">
-<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js" async></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<link href="custom.css" rel="stylesheet" type="text/css">
 </HEAD>
 <BODY>
 <div class="navbar">
@@ -248,6 +250,7 @@ class="propinst-margin-top">'margin-top'</span></a> and <a href="box.html#propde
 class="propinst-margin-bottom">'margin-bottom'</span></a> as well.</span>
 If the containing block's width depends on this element, then the
 resulting layout is undefined in CSS&nbsp;2.2.
+<p class="note ynote">百分数的基数是包含块的 width，即使是垂直方向上的 Margin。</p>
 <dt><strong>auto</strong>
 <dd>See the section on <a
 href="visudet.html#Computing_widths_and_margins">calculating widths and 
@@ -256,6 +259,7 @@ margins</a> for behavior.
 
 <P>Negative values for margin properties are allowed, but there may be
 implementation-specific limits. 
+<p class="note ynote">margin 可以是负值，这是一个重要的布局技巧。</p>
 
 <table class="def propdef">
  <tbody>
@@ -356,6 +360,7 @@ that combine this way are said to <dfn><a name="x26"><span
 class="index-def">collapse</span></a></dfn>, and the
 resulting combined margin is called a <dfn><a name="x27"><span class="index-def"
 title="collapsing margin">collapsed margin</span></a></dfn>.
+<p class="note ynote">垂直方向上毗连的 margin 会合并为单个 margin。</p>
 
 <P>Adjoining vertical margins collapse, except:
 
@@ -375,24 +380,29 @@ title="collapsing margin">collapsed margin</span></a></dfn>.
 </UL>
 
 <P>Horizontal margins never collapse.
+<p class="note ynote">水平方向上的 margin 不会合并。</p>
 
 <P ID="what-is-adjoining">Two margins are <a name="x28"><span class="index-def"
 title="adjoining margins"><DFN>adjoining</DFN></span></a> if and only if:
+<p class="note ynote">两个 margin 毗连的条件：</p>
 
 <UL>
   <LI>both belong to in-flow <a
   href="visuren.html#block-boxes">block-level boxes</a> that
   participate in the same <a
   href="visuren.html#block-formatting">block formatting context</a>
+  <p class="note ynote">在同一 BFC 下。</p>
 
   <LI>no line boxes, no clearance, no padding and no border separate
   them <span class="note">(Note that <a
   href="visuren.html#phantom-line-box">certain zero-height line
   boxes</a> (see <a href="visuren.html#inline-formatting">9.4.2</a>)
   are ignored for this purpose.)</span>
+  <p class="note ynote">两者之间没有 line boxes, clearance, padding, border。</p>
 
   <LI>both belong to vertically-adjacent box edges, i.e. form one of
   the following pairs:
+  <p class="note ynote">两者垂直相连。</p>
 
   <UL>
     <LI>top margin of a box and top margin of its first in-flow child
@@ -408,6 +418,7 @@ title="adjoining margins"><DFN>adjoining</DFN></span></a> if and only if:
     class="propinst-min-height">'min-height'</span></a>, zero or 'auto'
     computed <a href="visudet.html#propdef-height" class="noxref"><span class="propinst-height">'height'</span></a>, and no
     in-flow children
+    <p class="note ynote">空的且零高度的 block box，它的 top margin 和 bottom margin 会合并。</p>
   </UL>
 </UL>
 
@@ -530,6 +541,7 @@ resulting layout is undefined in CSS&nbsp;2.2.
 <P>Unlike margin properties, values for padding values cannot be
 negative. Like margin properties, percentage values for padding
 properties refer to the width of the generated box's containing block.
+<p class="note ynote">padding 不能是负值。百分数的基数是包含块的 width。</p>
 
 <table class="def propdef">
  <tbody>
@@ -654,7 +666,7 @@ agent. The following relationships must hold, however:
 <P>'thin' &lt;='medium' &lt;= 'thick'.  
 
 <P>Furthermore, these widths must be constant throughout a document.
-
+<p class="note ynote">border-width 默认值是 medium。不能是负值，也不能是百分数。</p>
 <table class="def propdef">
  <tbody>
   <tr>
@@ -838,7 +850,7 @@ color properties</a>, but UAs may choose their own algorithm to
 calculate the actual colors used. For instance, if the 'border-color'
 has the value 'silver', then a UA could use a gradient of colors from
 white to dark gray to indicate a sloping border.
-
+<p class="note ynote">border 在 background 之上。</p>
 
 
 

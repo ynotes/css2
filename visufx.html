@@ -1,8 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
+<meta charset="utf-8">
 <title>Visual effects</title>
-<link rel="stylesheet" href="style/default.css" type="text/css">
+<link rel="stylesheet" href="https://drafts.csswg.org/css2/style/default.css" type="text/css">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED.css" type="text/css">
 <link rel="prev" href="visudet.html">
 <link rel="next" href="generate.html">
@@ -10,7 +11,7 @@
 <link rel="CSS-properties" href="propidx.html" title="properties">
 <link rel="index" href="indexlist.html" title="index">
 <link rel="first" href="Overview.html">
-<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js" async></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
@@ -21,6 +22,7 @@ span.insproposed { text-decoration:underline }
 span.delproposed,span.delcurrent { text-decoration:line-through }
 body>del,body>ins {display:block}
 </style>
+<link href="custom.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="navbar">
@@ -159,6 +161,7 @@ native operating environment.
 href="tables.html#table-box">table box</a> (i.e., not the <a
 href="tables.html#table-wrapper-box">table wrapper box</a>) and all
 values other than 'hidden' are treated as 'visible'.
+<p class="note ynote">display: table 元素 overflow 应用于 table box 而不是 table wrapper box，而且 hidden 之外的值都视为 visible。</p>
 
 <p>
 UAs must apply the 'overflow' property set on the root element to
@@ -172,6 +175,7 @@ The 'visible' value when used for the viewport
 must be interpreted as 'auto'. The element from which the value is
 propagated must have a used value for 'overflow' of 'visible'.
 </p>
+<p class="note ynote">根元素的 overflow 应用到 viewport 上。如果根元素 overflow 为 visible, 则 body 的 overflow 冒泡给根元素。viewport 上 visible 视为 auto，不过 body 的 overflow 的计算值仍然是 visible。</p>
 
 <p>
 In the case of a scrollbar being placed on an edge of the element's
@@ -180,6 +184,7 @@ padding edge. Any space taken up by the scrollbars should be taken out
 of (subtracted from the dimensions of) the containing block formed by
 the element with the scrollbars.
 </p>
+<p class="note ynote">滚动条插到 border 和 padding 之间。</p>
 
 <div class="example"><P style="display:none">Example(s):</P><p>
 Consider the following example of a block quotation

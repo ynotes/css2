@@ -2,8 +2,9 @@
 <html lang="en">
 
 <head>
+<meta charset="utf-8">
 <title>Visual formatting model</title>
-<link rel="stylesheet" href="style/default.css" type="text/css">
+<link rel="stylesheet" href="https://drafts.csswg.org/css2/style/default.css" type="text/css">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED.css" type="text/css">
 <link rel="prev" href="box.html">
 <link rel="next" href="visudet.html">
@@ -11,7 +12,7 @@
 <link rel="CSS-properties" href="propidx.html" title="properties">
 <link rel="index" href="indexlist.html" title="index">
 <link rel="first" href="Overview.html">
-<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+<script type="text/javascript" src="https://www.w3.org/scripts/TR/2016/fixup.js" async></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style type="text/css">
@@ -26,6 +27,7 @@ blockquote.math p {display: table-row}
 blockquote.math span {display: table-cell; padding-right: 0.3em}
 blockquote.math span:first-child {text-align: right}
 </style>
+<link href="custom.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="navbar">
@@ -180,6 +182,8 @@ href="visufx.html#overflow">overflow</a>.
 how a containing block's dimensions are calculated are described in
 the <a href="visudet.html">next chapter</a>.
 </p>
+<p class="note ynote">boxes 的位置和尺寸通常根据它的 containing block 确定。boxes 可能会溢出它的  containing block。</p>
+
 <h2>9.2 <a name="box-gen">Controlling box generation</a></h2>
 
 <p>The following sections describe the types of boxes that may be
@@ -198,6 +202,7 @@ content and is also the box involved in any positioning scheme. Some
 elements may generate additional boxes in addition to the principal
 box: 'list-item' elements. These additional boxes are placed with
 respect to the principal box.
+<p class="note ynote">有些 elements 除了生成一个 principal box 还生成 additional boxes, 比如 'list-item' elements。</p>
 
 <h3>9.2.1 <a name="block-boxes">Block-level elements and block boxes</a></h3>
 
@@ -233,6 +238,12 @@ title="block box"><dfn>block boxes</dfn></span></a>.
 <p>The three terms "block-level box," "block container box," and
 "block box" are sometimes abbreviated as "block" where unambiguous.
 
+<p class="note ynote"> "block-level box", "block container box",
+"block box" 三个术语，比较接近。有时不做区别，统称为 "block"。<br>
+inline-block, table cells 是 "block container box" 但不是 "block-level box"。<br>
+同时是 "block container box" 的 "block-level box" 是 "block box"。
+</p>
+
 <h4>9.2.1.1 <a name="anonymous-block-level">Anonymous block boxes</a></h4>
 
 <p>In a document like this:
@@ -252,7 +263,7 @@ around "Some text".
 </p>
 <div class="figure">
 <p><img src="images/anon-block.png" alt="diagram showing the three
-boxes for the example above"><SPAN class="dlink">&nbsp;&nbsp;&nbsp;<A name="img-anon-block" href="images/longdesc/anon-block-desc.html" title="Long description for anonymous block box">[D]</A></SPAN> 
+boxes for the example above"><SPAN class="dlink">&nbsp;&nbsp;&nbsp;<A name="img-anon-block" href="images/longdesc/anon-block-desc.html" title="Long description for anonymous block box">[D]</A></SPAN>
 </p><p class="caption">Diagram showing the
 three boxes, of which one is anonymous, for the example above.
 </p></div>
@@ -268,9 +279,9 @@ the block-level box (and any block-level siblings that are consecutive
 or separated only by collapsible whitespace and/or out-of-flow
 elements), splitting the inline box into two boxes (even if either
 side is empty), one on each side of the block-level box(es). The line
-boxes before the break and after the 
-break are enclosed in anonymous block boxes, and the block-level box 
-becomes a sibling of those anonymous boxes. When such an inline box is 
+boxes before the break and after the
+break are enclosed in anonymous block boxes, and the block-level box
+becomes a sibling of those anonymous boxes. When such an inline box is
 affected by relative positioning, any resulting translation also
 affects the block-level box contained in the inline box.
 
@@ -307,25 +318,25 @@ another anonymous block box around C2.
 </p></div>
 
 <p>The properties of anonymous boxes are inherited from the
-enclosing non-anonymous box (e.g., in the example just below the subsection heading "Anonymous block boxes", the one for DIV). 
+enclosing non-anonymous box (e.g., in the example just below the subsection heading "Anonymous block boxes", the one for DIV).
 Non-inherited properties have their initial value. For example,
 the font of the anonymous box is inherited from the DIV, but the
 margins will be 0.
 </p>
 <p>
-Properties set on elements that cause anonymous block boxes to be 
-generated still apply to the boxes and content of that element. For 
-example, if a border had been set on the P element in the above 
-example, the border would be drawn around C1 (open at the end of the 
+Properties set on elements that cause anonymous block boxes to be
+generated still apply to the boxes and content of that element. For
+example, if a border had been set on the P element in the above
+example, the border would be drawn around C1 (open at the end of the
 line) and C2 (open at the start of the line).
 </p>
 <p>
-Some user agents have implemented borders on inlines containing 
-blocks in other ways, e.g., by wrapping such nested blocks inside 
-"anonymous line boxes" and thus drawing inline borders around such 
-boxes. As CSS1 and CSS2 did not define this behavior, CSS1-only and 
-CSS2-only user agents may implement this alternative model and still 
-claim conformance to this part of CSS&nbsp;2.2. This does not apply to UAs 
+Some user agents have implemented borders on inlines containing
+blocks in other ways, e.g., by wrapping such nested blocks inside
+"anonymous line boxes" and thus drawing inline borders around such
+boxes. As CSS1 and CSS2 did not define this behavior, CSS1-only and
+CSS2-only user agents may implement this alternative model and still
+claim conformance to this part of CSS&nbsp;2.2. This does not apply to UAs
 developed after this specification was released.
 </p>
 
@@ -346,12 +357,13 @@ do not form new blocks of content; the content is distributed in lines
 within a paragraph, inline images,
 etc.). The following values of the <a href="visuren.html#propdef-display" class="noxref"><span
 class="propinst-display">'display'</span></a> property make an element
-inline-level: 'inline', 'inline-table', and 'inline-block'. 
+inline-level: 'inline', 'inline-table', and 'inline-block'.
 
 Inline-level elements generate <a name="x12"><span class="index-def"
 title="inline-level box"><dfn>inline-level
 boxes</dfn></span></a>, which are boxes that participate in an inline
 formatting context.
+<p class="note ynote">display: inline | inline-* 元素是 inline-level 元素，生成 inline-level box。</p>
 
 <p>An <span class="index-def" title="inline box"><a
 name="inline-box"><dfn>inline
@@ -365,12 +377,14 @@ elements) are called <a name="x14"><span class="index-def" title="atomic
 inline-level box"><dfn>atomic inline-level boxes</dfn></span></a> because
 they participate in their inline formatting context as a single opaque
 box.
+<p class="note ynote">display: inline 非替换元素生成 inline box。不是 inline box 的 inline-level box 是 atomic inline-level box，比如 inline replaced element, inline-* element 的 box，它就像一个不透明的盒子。</p>
 
 <h4>9.2.2.1 <a name="anonymous">Anonymous inline boxes</a></h4>
 
 <p>Any text that is directly contained inside a block container element (not
 inside an inline element) must be treated as an anonymous inline
 element.
+<p class="note ynote">直接包含在 block container 中的文本（即不在内联元素中）视为匿名内联元素。</p>
 
 <p>In a document with HTML markup like this:</p>
 
@@ -442,7 +456,7 @@ name="value-def-inline-block"><strong>inline-block</strong></a></span>
 </dt>
 <dd>This value causes an element to generate a principal inline-level block
 container.
-(The inside of an inline-block is formatted as a block box, and the 
+(The inside of an inline-block is formatted as a block box, and the
 element itself is formatted as an atomic inline-level box.)
 </dd>
 <dt><span class="index-def" title="'inline', definition of"><a
@@ -469,13 +483,14 @@ element and its content are removed from the formatting structure
 entirely. This behavior <strong>cannot</strong> be overridden by
 setting the <a href="visuren.html#propdef-display" class="noxref"><span class="propinst-display">'display'</span></a> property
 on the descendants.
-
+<p class="note ynote">'none' 元素（包含它的后代元素）不生成 box，元素（包含它的后代元素）不显示，从排版中删除。</p>
 <p>Please note that a display of 'none' does not create an invisible
 box; it creates no box at all. CSS includes mechanisms that enable an
 element to generate boxes in the formatting structure that affect
 formatting but are not visible themselves. Please consult the section
 on <a href="visufx.html#visibility">visibility</a> for details.
 </p>
+<p class="note ynote">visibility: hidden 元素不显示，但是生成 box，排版保留。</p>
 </dd>
 <dt>
 <a href="tables.html#value-def-table" class="noxref"><span class="value-inst-table">table</span></a>,
@@ -498,9 +513,9 @@ href="tables.html">tables</a>).
 <p>The computed value is the same as the specified value, except for
 positioned and floating elements (see <a
 href="#dis-pos-flo">Relationships between 'display', 'position', and
-'float'</a>) and for the root element. 
+'float'</a>) and for the root element.
 
-For the root element, the computed value is changed as described in 
+For the root element, the computed value is changed as described in
 the section on the <a href="#dis-pos-flo">relationships between 'display', 'position', and 'float'</a>.
 </p>
 
@@ -512,6 +527,7 @@ href="cascade.html">override</a> this value. See the <a
 href="sample.html">sample style sheet</a> for HTML 4 in the
 appendix.
 </p>
+<p class="note ynote">尽管初始值是 inline, UA 默认样式为一些 tag 设置了其它的值。</p>
 <div class="example"><P style="display:none">Example(s):</P>
 <p>Here are some examples of the <a href="visuren.html#propdef-display" class="noxref"><span
 class="propinst-display">'display'</span></a> property:
@@ -519,7 +535,7 @@ class="propinst-display">'display'</span></a> property:
 <pre><code class="css">
 p   { display: block }
 em  { display: inline }
-li  { display: list-item } 
+li  { display: list-item }
 img { display: none }      /* Do not display images */
 </code></pre>
 </div>
@@ -534,19 +550,19 @@ schemes:</dfn></span></a></p>
 <ol>
 <li><a href="#normal-flow">Normal flow</a>. In CSS&nbsp;2.2, normal
 flow includes <a href="#block-formatting">block formatting</a>
-of block-level boxes, 
+of block-level boxes,
 <a href="#inline-formatting">inline formatting</a>
 of inline-level boxes, and <a
 href="#relative-positioning">relative positioning</a> of
 block-level and inline-level boxes.
 </li>
 <li><a href="#floats">Floats</a>. In the float model,
-a box is first laid out according to the normal flow, then 
+a box is first laid out according to the normal flow, then
 taken out of the flow and shifted
 to the left or right as far as possible. Content may
 flow along the side of a float.
 </li>
-<li><a href="#absolute-positioning">Absolute positioning</a>. 
+<li><a href="#absolute-positioning">Absolute positioning</a>.
 In the absolute positioning model, a box is removed from
 the normal flow entirely (it has no impact on later siblings)
 and assigned a position with respect to a containing block.
@@ -560,6 +576,7 @@ class="index-def">in-flow</span></a></dfn> if it is not out-of-flow. The
 <dfn><a name="x26"><span class="index-def">flow of an element</span></a></dfn>
 <var>A</var> is the set consisting of <var>A</var> and all in-flow
 elements whose nearest out-of-flow ancestor is <var>A</var>.
+<p class="note ynote">浮动元素，绝对定位元素，根元素不在 flow 中。</p>
 
 <div class="note">
 <em><strong>Note.</strong>
@@ -573,8 +590,8 @@ more accessible by allowing them to avoid mark-up tricks
 class="propinst-position">'position'</span></a> property</h3>
 
 <p>The <a href="visuren.html#propdef-position" class="noxref"><span class="propinst-position">'position'</span></a> and <a href="visuren.html#propdef-float" class="noxref"><span
-class="propinst-float">'float'</span></a> properties determine which 
-of the CSS&nbsp;2.2 positioning algorithms is used to calculate 
+class="propinst-float">'float'</span></a> properties determine which
+of the CSS&nbsp;2.2 positioning algorithms is used to calculate
 the position of a box.
 </p>
 
@@ -597,12 +614,12 @@ the position of a box.
 <dt><strong>static</strong></dt>
 
 <dd>The box is a normal box, laid out according to the <a
-href="#normal-flow">normal flow</a>. The 
-<a href="visuren.html#propdef-top" class="noxref"><span class="propinst-top">'top'</span></a>, 
-<a href="visuren.html#propdef-right" class="noxref"><span class="propinst-right">'right'</span></a>, 
+href="#normal-flow">normal flow</a>. The
+<a href="visuren.html#propdef-top" class="noxref"><span class="propinst-top">'top'</span></a>,
+<a href="visuren.html#propdef-right" class="noxref"><span class="propinst-right">'right'</span></a>,
 <a href="visuren.html#propdef-bottom" class="noxref"><span class="propinst-bottom">'bottom'</span></a>,
 and <a href="visuren.html#propdef-left" class="noxref"><span class="propinst-left">'left'</span></a>
-properties do not apply. 
+properties do not apply.
 </dd>
 <dt><strong>relative</strong></dt>
 
@@ -616,15 +633,15 @@ calculated as though B were not offset.  The effect of 'position:relative' on ta
 <dt><strong>absolute</strong></dt>
 <dd> The box's position (and possibly size) is specified
 with the <a href="visuren.html#propdef-top" class="noxref"><span class="propinst-top">'top'</span></a>,
-<a href="visuren.html#propdef-right" class="noxref"><span class="propinst-right">'right'</span></a>, 
+<a href="visuren.html#propdef-right" class="noxref"><span class="propinst-right">'right'</span></a>,
 <a href="visuren.html#propdef-bottom" class="noxref"><span class="propinst-bottom">'bottom'</span></a>, and
 <a href="visuren.html#propdef-left" class="noxref"><span class="propinst-left">'left'</span></a>
 properties.
-These properties specify offsets with respect to the box's 
+These properties specify offsets with respect to the box's
 <a href="#containing-block">containing block</a>. Absolutely
 positioned boxes are taken out of the normal flow. This means
 they have no impact on the layout of later siblings. Also,
-though <a href="#absolutely-positioned">absolutely positioned</a> 
+though <a href="#absolutely-positioned">absolutely positioned</a>
 boxes have margins, they
 do not <a href="box.html#collapsing-margins">collapse</a>
 with any other margins.
@@ -632,14 +649,14 @@ with any other margins.
 <dt><strong>fixed</strong></dt>
 <dd> The box's position is calculated according to the 'absolute'
 model, but in addition, the box is <a
-href="#fixed-positioning">fixed</a> with respect to some reference.  
+href="#fixed-positioning">fixed</a> with respect to some reference.
 As with the 'absolute' model, the box's margins do not collapse with any other margins.
-In the case of handheld, projection, screen, tty, and tv media types, 
-the box is fixed with respect to the <a href="#viewport">viewport</a> 
-and does not move when 
-scrolled. In the case of the print media type, the box is rendered on every page, and is fixed with respect to the page box, even if the page is seen through a <a href="#viewport">viewport</a> 
-(in the case of a print-preview, for example). For other media 
-types, the presentation is undefined. 
+In the case of handheld, projection, screen, tty, and tv media types,
+the box is fixed with respect to the <a href="#viewport">viewport</a>
+and does not move when
+scrolled. In the case of the print media type, the box is rendered on every page, and is fixed with respect to the page box, even if the page is seen through a <a href="#viewport">viewport</a>
+(in the case of a print-preview, for example). For other media
+types, the presentation is undefined.
 Authors may wish to specify 'fixed' in a
 media-dependent way.  For instance, an author may want a box to remain
 at the top of the <a href="#viewport">viewport</a> on the screen, but
@@ -648,14 +665,14 @@ separated by using an <a href="media.html#at-media-rule">@media
 rule</a>, as in:
 
 <div class="example"><P style="display:none">Example(s):</P>
-<pre><code class="css">   
-@media screen { 
-  h1#first { position: fixed } 
+<pre><code class="css">
+@media screen {
+  h1#first { position: fixed }
 }
-@media print { 
+@media print {
   h1#first { position: static }
 }
-</code></pre>   
+</code></pre>
 </div>
 <p>UAs must not paginate the content of fixed boxes. <span
 class="note">Note that UAs may print invisible content in other
@@ -678,6 +695,7 @@ element/box"><a name="positioned-element"><dfn>positioned</dfn></a></span>
 if its <a href="visuren.html#propdef-position" class="noxref"><span class="propinst-position">'position'</span></a> property has
 a value other than 'static'. Positioned elements generate
 positioned boxes, laid out according to four properties:</p>
+<p class="note ynote">position 值不为 static 的元素称为定位元素。</p>
 
 <table class="def propdef">
  <tbody>
@@ -702,6 +720,7 @@ positioned boxes, the offset is with respect to the top edges of the
 box itself (i.e., the box is given a position in the normal flow, then
 offset from that position according to these properties).
 </p>
+<p class="note ynote">对于绝对定位元素，top 指定此元素的上边距相对它的包含块（padding-box）的顶端的距离。对于相对定位元素，top 指定此元素的上边距相对它自身的顶端的距离。</p>
 
 <table class="def propdef">
  <tbody>
@@ -785,12 +804,12 @@ class="propinst-top">'top'</span></a> and <a href="visuren.html#propdef-bottom" 
 class="propinst-bottom">'bottom'</span></a>). Negative values are allowed.
 </dd>
 <dt><strong>auto</strong></dt>
-<dd>For non-replaced elements, the effect of this value 
+<dd>For non-replaced elements, the effect of this value
 depends on which of related properties have the value 'auto' as
-well. See the sections on the 
+well. See the sections on the
 <a href="visudet.html#abs-non-replaced-width">width</a>
 and <a href="visudet.html#abs-non-replaced-height">height</a>
-of <a href="#absolutely-positioned">absolutely positioned</a>, 
+of <a href="#absolutely-positioned">absolutely positioned</a>,
 non-replaced elements for details.  For replaced elements, the
 effect of this value depends only on the intrinsic dimensions of the
 replaced content. See the sections on the <a
@@ -800,7 +819,7 @@ positioned, replaced elements for details.
 </dd>
 </dl>
 
-<h2>9.4 <a name="normal-flow">Normal flow</a></h2> 
+<h2>9.4 <a name="normal-flow">Normal flow</a></h2>
 
 <p>Boxes in the normal flow belong to a <a name="x33"><span class="index-def"
 title="formatting context">formatting context</span></a>, which in CSS&nbsp;2.2
@@ -855,19 +874,21 @@ these boxes. The boxes may be aligned vertically in different ways: their
 bottoms or tops may be aligned, or the baselines of text within them
 may be aligned. The rectangular area that contains the boxes that form
 a line is called a <span class="index-def" title="line box"><a
-name="line-box"><dfn>line box</dfn></a></span>. 
+name="line-box"><dfn>line box</dfn></a></span>.
 </p>
+<p class="note ynote">行所在的 box 称为 line box。这个 box 没有对应 element，inline elements 可能跨行。</p>
 <p>The width of a line box is determined by a <a
-href="#containing-block">containing block</a> and the presence of floats.  
+href="#containing-block">containing block</a> and the presence of floats.
 The height of a line
 box is determined by the rules given in the section on <a
-href="visudet.html#line-height">line height calculations</a>. 
+href="visudet.html#line-height">line height calculations</a>.
 </p>
-<p>A line box is always tall enough for all of the boxes it contains. 
-However, it may be taller than the tallest box it contains 
-(if, for example, boxes are aligned so that baselines line up). 
-When the height of a box B is less than the height of the line box containing it, 
-the vertical alignment of B within the line box is determined by 
+<p class="note ynote">line box 的宽由 containing block 和 floating box 决定, line box 要为 floating box 腾出位置。</p>
+<p>A line box is always tall enough for all of the boxes it contains.
+However, it may be taller than the tallest box it contains
+(if, for example, boxes are aligned so that baselines line up).
+When the height of a box B is less than the height of the line box containing it,
+the vertical alignment of B within the line box is determined by
 the <a href="visudet.html#propdef-vertical-align" class="noxref"><span class="propinst-vertical-align">'vertical-align'</span></a> property.
 When several inline-level boxes cannot fit horizontally within a single
 line box, they are distributed among two or more vertically-stacked
@@ -875,6 +896,7 @@ line boxes. Thus, a paragraph is a vertical stack of line boxes. Line
 boxes are stacked with no vertical separation (except as specified
 elsewhere) and they never overlap.
 </p>
+<p class="note ynote">line box 足够高以容纳它所包含的 boxes，可能比最高的 box 还要高，因为 boxes 可能在 baseline 之上。</p>
 <p>In general, the left edge of a line box touches the left edge
 of its containing block and the right edge touches the right edge of
 its containing block. However, floating boxes may come between the
@@ -898,6 +920,8 @@ boxes) as well.
 <p>
 When an inline box exceeds the width of a line box, it is split into several boxes and these boxes are distributed across several line boxes.  If an inline box cannot be split (e.g., if the inline box contains a single character, or language specific word breaking rules disallow a break within the inline box, or if the inline box is affected by a white-space value of nowrap or pre), then the inline box overflows the line box.
 </p>
+<p class="note ynote">inline-level boxes 可能溢出 line box。</p>
+
 <p>
 When an inline box is split, margins,
 borders, and padding have no visual effect where the split occurs (or
@@ -918,7 +942,7 @@ be treated as zero-height line boxes for the purposes of determining
 the positions of any elements inside of them, and must be treated as
 not existing for any other purpose.
 </p>
-<div class="html example"><p> 
+<div class="html example"><p>
 Here is an example of inline box construction. The following paragraph
 (created by the HTML block-level element P) contains anonymous text
 interspersed with the elements EM and STRONG:
@@ -938,7 +962,7 @@ boxes, three of which are anonymous:</p>
 <li>STRONG: "in this"</li>
 <li>Anonymous: "sentence, dear."</li>
 </ul>
- 
+
 <p>To format the paragraph, the user agent flows the five boxes into
 line boxes. In this example, the box generated for the P element
 establishes the containing block for the line boxes. If the containing
@@ -960,8 +984,8 @@ Several <em>emphasized words</em> appear
 or like this:
 
 <pre>
-Several <em>emphasized</em>  
-<em>words</em> appear <strong>in this</strong> 
+Several <em>emphasized</em>
+<em>words</em> appear <strong>in this</strong>
 sentence, dear.
 </pre>
 
@@ -982,7 +1006,7 @@ Consider the following example:
     &lt;TITLE&gt;Example of inline flow on several lines&lt;/TITLE&gt;
     &lt;STYLE type="text/css"&gt;
       EM {
-        padding: 2px; 
+        padding: 2px;
         margin: 1em;
         border-width: medium;
         border-style: dashed;
@@ -1015,7 +1039,7 @@ dashed border is rendered on three sides in each case.</li>
 </ul>
 </div>
 
-<h3>9.4.3 <a name="relative-positioning">Relative positioning</a></h3>  
+<h3>9.4.3 <a name="relative-positioning">Relative positioning</a></h3>
 
 <p>Once a box has been laid out according to the <a
 href="#normal-flow">normal flow</a> or floated, it may be shifted relative to
@@ -1077,12 +1101,12 @@ minus the value of 'top').
 </p>
 
 <p class="note">
-Note. 
+Note.
 Dynamic movement of relatively positioned boxes can produce
 animation effects in scripting environments (see also the <a href="visufx.html#propdef-visibility" class="noxref"><span
-class="propinst-visibility">'visibility'</span></a> property). 
-Although relative positioning may be used as a form of superscripting and 
-subscripting, the line height is not automatically adjusted to take the 
+class="propinst-visibility">'visibility'</span></a> property).
+Although relative positioning may be used as a form of superscripting and
+subscripting, the line height is not automatically adjusted to take the
 positioning into consideration. See the description of <a
 href="visudet.html#line-height">line height calculations</a> for more
 information.
@@ -1108,8 +1132,8 @@ property.
 <p>
 A floated box is
 shifted to the left or right until its outer edge touches the
-containing block edge or the outer edge of another float. 
-If there is a line box, the outer top of the floated box is aligned with 
+containing block edge or the outer edge of another float.
+If there is a line box, the outer top of the floated box is aligned with
 the top of the current line box.
 </p>
 <p>
@@ -1126,6 +1150,8 @@ shortened
 as necessary
 to make room for the margin box of the float.
 
+<p class="note ynote">float 不在 normal flow 当中，不过与它并排的 line boxes 会为它腾出地方。</p>
+
 <p>A line box is next to a float when there exists a vertical position
 that satisfies all of these four conditions: (a) at or below the top
 of the line box, (b) at or above the bottom of the line box, (c) below
@@ -1138,15 +1164,15 @@ negative outer height do not shorten line boxes.
 <p>If a shortened line box is too small to contain any content, then
 the line box is shifted downward (and its width recomputed) until
 either some content fits or there are no more floats present.
-Any content in the current line before a floated box is reflowed 
+Any content in the current line before a floated box is reflowed
 in the same line on the other side of the float.
-In other words, if inline-level boxes are placed 
-on the line before a left float is encountered that fits in the remaining line box space, 
+In other words, if inline-level boxes are placed
+on the line before a left float is encountered that fits in the remaining line box space,
 the left float is placed on that line, aligned with the top of the line box, and then the inline-level boxes already on the line are moved accordingly to the right of the float (the right being the other side of the left float) and vice versa for rtl and right floats.
 </p>
 
 <p id="bfc-next-to-float">
-The border box of a table, a block-level replaced element, or an element in the normal flow that establishes a new <a href="visuren.html#block-formatting">block formatting context</a> 
+The border box of a table, a block-level replaced element, or an element in the normal flow that establishes a new <a href="visuren.html#block-formatting">block formatting context</a>
 (such as an element with 'overflow' other than 'visible')
 must not overlap the margin box of any floats in the same block
 formatting context as
@@ -1159,11 +1185,11 @@ CSS2 does not define when a UA may put said element next to the float
 or by how much said element may become narrower.
 </p>
 <div class="example"><P style="display:none">Example(s):</P>
-<p><strong>Example.</strong> 
-In the following document fragment, the containing block is too narrow 
-to contain the content next to the float, 
-so the content gets moved to below the floats 
-where it is aligned in the line box according to the text-align 
+<p><strong>Example.</strong>
+In the following document fragment, the containing block is too narrow
+to contain the content next to the float,
+so the content gets moved to below the floats
+where it is aligned in the line box according to the text-align
 property.
 </p>
 <pre><code class="css">
@@ -1181,9 +1207,9 @@ span { float: left; width: 5em; height: 5em; border: solid blue; }
 </code></pre>
 <p>This fragment might look like this:</p>
 <div class="figure"><p>
-<img style="display:block" src="images/supercal.png" 
- alt="Image illustrating the effect of an unbreakable piece of content 
- being reflowed to just after a float which left insufficient room next to it 
+<img style="display:block" src="images/supercal.png"
+ alt="Image illustrating the effect of an unbreakable piece of content
+ being reflowed to just after a float which left insufficient room next to it
  for the content to fit." >
 </p>
 </div>
@@ -1198,7 +1224,7 @@ The following rule floats all IMG boxes with
 sets the left margin to '0'):</p>
 
 <pre><code class="css">
-img.icon { 
+img.icon {
   float: left;
   margin-left: 0;
 }
@@ -1209,7 +1235,7 @@ img.icon {
 <div class="html example"><p>
 Consider the following HTML source and style sheet:</p>
 
-<pre><code class="html">  
+<pre><code class="html">
 &lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;
 &lt;HTML&gt;
   &lt;HEAD&gt;
@@ -1244,7 +1270,7 @@ been:
 </p>
 <pre><code class="html">
 &lt;BODY&gt;
-  &lt;P&gt;Some sample text 
+  &lt;P&gt;Some sample text
   &lt;IMG src=img.png alt="This image will illustrate floats"&gt;
            that has no other...
 &lt;/BODY&gt;
@@ -1254,7 +1280,7 @@ been:
 the float and reflowed down its right side.
 </p></div>
 
-<p>As stated in <a href="box.html#collapsing-margins">section 8.3.1</a>, 
+<p>As stated in <a href="box.html#collapsing-margins">section 8.3.1</a>,
 the margins of floating boxes never <a
 href="box.html#collapsing-margins">collapse</a> with margins of
 adjacent boxes. Thus, in the previous example, vertical margins do not
@@ -1262,13 +1288,13 @@ adjacent boxes. Thus, in the previous example, vertical margins do not
 and the floated IMG box.
 </p>
 <p>
-The contents of floats are stacked as if floats generated new 
+The contents of floats are stacked as if floats generated new
 stacking contexts, except that any positioned elements and elements
 that actually create new
-stacking contexts take part in the float's parent stacking context. 
-A float can overlap other boxes in the normal flow (e.g., when a 
-normal flow box next to a float has negative margins). When this 
-happens, floats are rendered in front of non-positioned in-flow 
+stacking contexts take part in the float's parent stacking context.
+A float can overlap other boxes in the normal flow (e.g., when a
+normal flow box next to a float has negative margins). When this
+happens, floats are rendered in front of non-positioned in-flow
 blocks, but behind in-flow inlines.
 </p>
 <div class="example"><P style="display:none">Example(s):</P>
@@ -1332,9 +1358,9 @@ class="propinst-clear">'clear'</span></a> property).
 </table>
 
 <p>This property specifies whether a box should float to the left,
-right, or not at all. It may be set for any element, but only applies to 
-elements that generate boxes that are not 
-<a href="#absolutely-positioned">absolutely positioned</a>.  
+right, or not at all. It may be set for any element, but only applies to
+elements that generate boxes that are not
+<a href="#absolutely-positioned">absolutely positioned</a>.
 The values of this property have
 the following meanings:</p>
 
@@ -1344,7 +1370,7 @@ the following meanings:</p>
 <dd>The element generates a <a href="#block-boxes">block</a> box that is
 floated to the left. Content flows on the right side of the box,
 starting at the top (subject to the <a href="visuren.html#propdef-clear" class="noxref"><span
-class="propinst-clear">'clear'</span></a> property). 
+class="propinst-clear">'clear'</span></a> property).
 </dd>
 <dt><strong>right</strong></dt>
 
@@ -1356,9 +1382,9 @@ class="propinst-clear">'clear'</span></a> property).
 </dl>
 
 <p>
-User agents may treat float as 'none' on the root element. 
+User agents may treat float as 'none' on the root element.
 </p>
-
+<p class="note ynote">根元素是否可以浮动由 UA 自定。</p>
 
 <p><span class="index-def" title="float rules"><a
 name="float-rules">Here are the precise rules</a></span> that
@@ -1370,7 +1396,7 @@ left-floating box may not be to the left of the left edge of its <a
 href="#containing-block">containing block</a>. An
 analogous rule holds for right-floating elements.
 </li>
-<li> If the current box is left-floating, and there are any left-floating 
+<li> If the current box is left-floating, and there are any left-floating
 boxes generated by elements earlier in the source document,
 then for each such earlier box, either the left <a
 href="box.html#outer-edge">outer edge</a> of the current box must be
@@ -1445,7 +1471,7 @@ alt="An a at the left side of a box and a b at the right side">
 
 
 <h3>9.5.2 <a name="flow-control">Controlling flow next to floats:</a>
-the <a href="visuren.html#propdef-clear" class="noxref"><span class="propinst-clear">'clear'</span></a> property</h3> 
+the <a href="visuren.html#propdef-clear" class="noxref"><span class="propinst-clear">'clear'</span></a> property</h3>
 
 <table class="def propdef">
  <tbody>
@@ -1466,6 +1492,7 @@ property does not consider floats inside the element itself or in
 other <a href="visuren.html#block-formatting">block formatting
 contexts.</a>
 </p>
+<p class="note ynote">clear 指定 element box 的哪一边不与 floating box 并排。clear 的意思不是取消元素浮动，float: none 才是。</p>
 
 <p>Values have the following meanings when applied to non-floating
 block-level boxes:</p>
@@ -1476,6 +1503,7 @@ block-level boxes:</p>
 <dd>Requires that the top border edge of the box be below the bottom
 outer edge of any left-floating boxes that resulted from elements
 earlier in the source document.
+<p class="note ynote">element box 的 top border 在 left-floating boxes 的 bottom margin 的下边。</p>
 </dd>
 
 <dt><strong>right</strong></dt>
@@ -1483,6 +1511,7 @@ earlier in the source document.
 <dd>Requires that the top border edge of the box be below the bottom
 outer edge of any right-floating boxes that resulted from elements
 earlier in the source document.
+<p class="note ynote">element box 的 top border 在 right-floating boxes 的 bottom margin 的下边。</p>
 </dd>
 
 <dt><strong>both</strong></dt>
@@ -1490,6 +1519,7 @@ earlier in the source document.
 <dd>Requires that the top border edge of the box be below the bottom
 outer edge of any right-floating and left-floating boxes that resulted
 from elements earlier in the source document.
+<p class="note ynote">element box 的 top border 在 floating boxes 的 bottom margin 的下边。</p>
 </dd>
 
 <dt><strong>none</strong></dt>
@@ -1502,6 +1532,7 @@ class="index-def"><a name="clearance">clearance</a></span>.</dfn>
 Clearance inhibits margin collapsing
 and acts as spacing above the margin-top of an element. It is used to
 push the element vertically past the float.
+<p class="note ynote">clear: !none 生成一个 clearance。它如同一个位于 element margin-top 之上的 box，将 element box 推到 floating boxes 的下面。</p>
 
 <p>Computing the clearance of an element on which 'clear' is set is
 done by first determining the hypothetical position of the element's
@@ -1519,7 +1550,7 @@ margins collapse according to the rules in 8.3.1.
   <li>The amount necessary to place the border edge of the block even
   with the bottom outer edge of the lowest float that is to be
   cleared.
- 
+
   <li>The amount necessary to place the top border edge of the block
   at its hypothetical position.
 </ol>
@@ -1543,10 +1574,10 @@ height H, and block B2 with a top margin of M2 (no padding or border,
 no children). B2 has 'clear' set to 'both'. We also assume B2 is not
 empty.
 
-<p>Without considering the 'clear' property on B2, we have the situation in 
-the diagram below. The margins of B1 and B2 collapse. Let's say the 
-bottom border edge of B1 is at y = 0, then the top of F is at y = M1, 
-the top border edge of B2 is at y = max(M1,M2), and the bottom of F is 
+<p>Without considering the 'clear' property on B2, we have the situation in
+the diagram below. The margins of B1 and B2 collapse. Let's say the
+bottom border edge of B1 is at y = 0, then the top of F is at y = M1,
+the top border edge of B2 is at y = max(M1,M2), and the bottom of F is
 at y = M1 + H.
 
 <div class="figure">
@@ -1562,10 +1593,10 @@ means:
 <p>max(M1,M2) &lt; M1 + H
 </blockquote>
 
-<p>We need to compute clearance C twice, C1 and C2, and 
-keep the greater of the two: C = max(C1,C2). The first way is to put 
-the top of B2 flush with the bottom of F, i.e., at y = M1 + H. That 
-means, because the margins no longer collapse with a clearance between 
+<p>We need to compute clearance C twice, C1 and C2, and
+keep the greater of the two: C = max(C1,C2). The first way is to put
+the top of B2 flush with the bottom of F, i.e., at y = M1 + H. That
+means, because the margins no longer collapse with a clearance between
 them:
 
 <blockquote class=math>
@@ -1575,7 +1606,7 @@ them:
 <p>            <span></span> <span>= H - M2</span>
 </blockquote>
 
-<p>The second computation is to keep the top of B2 where it is, i.e., at y 
+<p>The second computation is to keep the top of B2 where it is, i.e., at y
 = max(M1,M2). That means:
 
 <blockquote class=math>
@@ -1628,6 +1659,7 @@ lower. This means that clearance must be introduced.  Accordingly, the
 margins no longer collapse and the amount of clearance is set so that
 clearance + margin-top = 2em, i.e., clearance = 2em - margin-top = 2em
 - 3em = -1em.
+<p class="note ynote">clearance 可能是负的。floatingBoxMarginBoxHeight = clearance + marginTop,  floatingBoxMarginBoxHeight - marginTop < 0 即 clearance 为负的。</p>
 </div>
 
 <p>When the property is set on floating elements, it results in a
@@ -1636,21 +1668,21 @@ positioning the float. An extra constraint (#10) is added:
 </p>
 
 <ul>
-<li>The top <a href="box.html#outer-edge">outer edge</a> 
+<li>The top <a href="box.html#outer-edge">outer edge</a>
 of the float must be below the bottom outer
 edge of all earlier left-floating boxes (in the case of 'clear:
 left'), or all earlier right-floating boxes (in the case of 'clear:
 right'), or both ('clear: both').</li>
 </ul>
-
+<p class="note ynote">当 clear 用在 floating box 时，这个 box 的 bottom margin 在其它 floating box 的 bottom margin 的下面。</p>
 <div class="note"><p>
 <em><strong>Note.</strong>
-This property <a href="http://www.w3.org/TR/REC-CSS1/#clear">applied to all elements in CSS1</a>. Implementations 
-may therefore have supported this property on all elements. In CSS2 
-and CSS&nbsp;2.2 the 'clear' property only applies to block-level elements. 
+This property <a href="http://www.w3.org/TR/REC-CSS1/#clear">applied to all elements in CSS1</a>. Implementations
+may therefore have supported this property on all elements. In CSS2
+and CSS&nbsp;2.2 the 'clear' property only applies to block-level elements.
 Therefore authors should only use this property on block-level
-elements.  If an implementation does support clear on inline elements, 
-rather than setting a clearance as explained above, 
+elements.  If an implementation does support clear on inline elements,
+rather than setting a clearance as explained above,
 the implementation should force a break and effectively insert one or more empty line boxes (or shifting the new line box downward as described in <a href="#floats">section 9.5</a>) to move the top of the cleared inline's line box to below the respective floating box(es).
 </em>
 </p>
@@ -1664,7 +1696,7 @@ entirely (it has no impact on later siblings).  An absolutely
 positioned box establishes a new containing block for normal flow
 children and absolutely (but not fixed) positioned descendants.  However, the contents of an
 absolutely positioned element do not flow around any other boxes. They
-may obscure the contents of another box (or be obscured themselves), 
+may obscure the contents of another box (or be obscured themselves),
 depending on the
 <a href="#stack-level">stack levels</a> of the overlapping boxes.
 </p>
@@ -1760,28 +1792,28 @@ style rules:</p>
 <h2>9.7 <a name="dis-pos-flo">Relationships between 'display', 'position',
 and 'float'</a></h2>
 
-<p>The three properties that affect box generation and layout &mdash; 
-<a href="visuren.html#propdef-display" class="noxref"><span class="propinst-display">'display'</span></a>, 
-<a href="visuren.html#propdef-position" class="noxref"><span class="propinst-position">'position'</span></a>, and 
+<p>The three properties that affect box generation and layout &mdash;
+<a href="visuren.html#propdef-display" class="noxref"><span class="propinst-display">'display'</span></a>,
+<a href="visuren.html#propdef-position" class="noxref"><span class="propinst-position">'position'</span></a>, and
 <a href="visuren.html#propdef-float" class="noxref"><span class="propinst-float">'float'</span></a> &mdash; interact as follows:</p>
 
 <ol>
 <li>If <a href="visuren.html#propdef-display" class="noxref"><span class="propinst-display">'display'</span></a>
-has the value 'none', then 
+has the value 'none', then
 <a href="visuren.html#propdef-position" class="noxref"><span class="propinst-position">'position'</span></a> and
-<a href="visuren.html#propdef-float" class="noxref"><span class="propinst-float">'float'</span></a> do not apply. 
+<a href="visuren.html#propdef-float" class="noxref"><span class="propinst-float">'float'</span></a> do not apply.
 In this case, the element generates no box.</li>
 
 <li>Otherwise, if <a href="visuren.html#propdef-position" class="noxref"><span class="propinst-position">'position'</span></a>
-has the value 'absolute' or 'fixed', the box is absolutely positioned, 
+has the value 'absolute' or 'fixed', the box is absolutely positioned,
 the computed
-value of <a href="visuren.html#propdef-float" class="noxref"><span class="propinst-float">'float'</span></a> is 'none',  
-and display is set according to the table below.  
+value of <a href="visuren.html#propdef-float" class="noxref"><span class="propinst-float">'float'</span></a> is 'none',
+and display is set according to the table below.
 The position of the box will be determined by the <a href="visuren.html#propdef-top" class="noxref"><span
 class="propinst-top">'top'</span></a>, <a href="visuren.html#propdef-right" class="noxref"><span
 class="propinst-right">'right'</span></a>, <a href="visuren.html#propdef-bottom" class="noxref"><span
 class="propinst-bottom">'bottom'</span></a> and <a href="visuren.html#propdef-left" class="noxref"><span
-class="propinst-left">'left'</span></a> properties and the box's 
+class="propinst-left">'left'</span></a> properties and the box's
 containing block.
 </li>
 
@@ -1789,7 +1821,7 @@ containing block.
 floated and 'display' is set according to the table below.
 </li>
 
-<li>Otherwise, if the element is the root element, 
+<li>Otherwise, if the element is the root element,
 'display' is set according to the table below, except that it is
 undefined in CSS&nbsp;2.2 whether a specified value of 'list-item'
 becomes a computed value of 'block' or 'list-item'.</li>
@@ -1808,8 +1840,18 @@ table-column-group, table-header-group, table-footer-group, table-row,
 table-cell, table-caption, inline-block </td><td>block</td></tr>
 <tr><td>others </td><td>same as specified</td></tr>
 </table>
+<ul class="note ynote">
+<li>display: none，不应用 position 和 float。</li>
+<li>下面三种情况，display: inline | inline-block 计算值为 block，不需要专门指定 diplay: block。
+<ul>
+<li>position: absolute | fixed，此时 float 计算值为 none。</li>
+<li>float: left | right</li>
+<li>root element</li>
+</ul>
+</li>
+</ul>
 
-<h2>9.8 <a name="comparison">Comparison of normal flow, floats,  
+<h2>9.8 <a name="comparison">Comparison of normal flow, floats,
 and absolute positioning</a></h2>
 <p>To illustrate the differences between normal flow, relative
 positioning, floats, and absolute positioning, we provide a series of
@@ -1835,7 +1877,7 @@ examples based on the following HTML:
 <p>In this document, we assume the following rules:</p>
 
 <pre class="example"><code class="css">
-body { display: block; font-size:12px; line-height: 200%; 
+body { display: block; font-size:12px; line-height: 200%;
        width: 400px; height: 400px }
 p    { display: block }
 span { display: inline }
@@ -1848,9 +1890,9 @@ href="#normal-flow">normal flow</a> position of the double-spaced (for
 clarity) lines. </p>
 
 <p class="note">
-Note. The diagrams in this section are illustrative and not to 
-scale. They are meant to highlight the differences between the 
-various positioning schemes in CSS 2.2, and are not intended to be 
+Note. The diagrams in this section are illustrative and not to
+scale. They are meant to highlight the differences between the
+various positioning schemes in CSS 2.2, and are not intended to be
 reference renderings of the examples given.
 </p>
 
@@ -1927,7 +1969,7 @@ rules:
 <p>Text flows normally up to the <em>inner</em> box, which is pulled
 out of the flow and floated to the right margin (its <a href="visudet.html#propdef-width" class="noxref"><span
 class="propinst-width">'width'</span></a> has been assigned explicitly).
-Line boxes to the left of the float are shortened, and the 
+Line boxes to the left of the float are shortened, and the
 document's remaining text flows into them.</p>
 
 <div class="figure">
@@ -1987,7 +2029,7 @@ flow below the float:
 </code></pre>
 
 <div class="figure">
-<p><img src="./images/flow-clear2.png" 
+<p><img src="./images/flow-clear2.png"
 alt="Image illustrating the effects of floating an element with setting the clear property to control the flow of text around the element."><SPAN class="dlink">&nbsp;&nbsp;&nbsp;<A name="img-flow-clear2" href="images/longdesc/flow-clear2-desc.html" title="Long description of example illustrating floating
 with clear">[D]</A></SPAN></p>
 </div>
@@ -2000,10 +2042,10 @@ Consider the following CSS declarations for <em>outer</em> and
 <em>inner</em>:</p>
 
 <pre class="example"><code class="css">
-#outer { 
-    position: absolute; 
-    top: 200px; left: 200px; 
-    width: 200px; 
+#outer {
+    position: absolute;
+    top: 200px; left: 200px;
+    width: 200px;
     color: red;
 }
 #inner { color: blue }
@@ -2035,14 +2077,14 @@ serve as references for <a href="visuren.html#propdef-top" class="noxref"><span 
 <a href="visuren.html#propdef-left" class="noxref"><span class="propinst-left">'left'</span></a> offsets.
 </p>
 <pre class="example"><code class="css">
-#outer { 
-  position: relative; 
-  color: red 
+#outer {
+  position: relative;
+  color: red
 }
-#inner { 
-  position: absolute; 
-  top: 200px; left: -100px; 
-  height: 130px; width: 130px; 
+#inner {
+  position: absolute;
+  top: 200px; left: -100px;
+  height: 130px; width: 130px;
   color: blue;
 }
 </code></pre>
@@ -2061,9 +2103,9 @@ with respect to a positioned ancestor">[D]</A></SPAN></p>
 <pre class="example"><code class="css">
 #outer { color: red }
 #inner {
-  position: absolute; 
-  top: 200px; left: -100px; 
-  height: 130px; width: 130px; 
+  position: absolute;
+  top: 200px; left: -100px;
+  height: 130px; width: 130px;
   color: blue;
 }
 </code></pre>
@@ -2113,7 +2155,7 @@ line.</p>
 <h2>9.9 <a name="layers">Layered presentation</a></h2>
 
 <h3>9.9.1 <a name="z-index">Specifying the stack level</a>: the <a href="visuren.html#propdef-z-index" class="noxref"><span
-class="propinst-z-index">'z-index'</span></a> property</h3> 
+class="propinst-z-index">'z-index'</span></a> property</h3>
 
 <table class="def propdef">
  <tbody>
@@ -2146,15 +2188,17 @@ class="propinst-z-index">'z-index'</span></a> property specifies:
   <dd>This integer is the stack level of the generated box in the
   current stacking context. The box also establishes a new stacking
   context.
+  <p class="note ynote">指定 box 在当前堆放上下文的层级为 0，同时建立一个新的堆放上下文。整数，意思是可以是负数。</p>
 
   <dt><strong>auto</strong>
 
   <dd>The stack level of the generated box in the current stacking
   context is 0. If the box has 'position: fixed' or if it is the root,
   it also establishes a new stacking context.
+  <p class="note ynote">box 在当前堆放上下文的层级为 0。如果 box 'position: fixed' 或者是 root，它同时建立一个新的堆放上下文。</p>
 </dl>
 
-<p><em>In this section, the expression "in front of" 
+<p><em>In this section, the expression "in front of"
 means closer to the user as the user faces the screen.</em></p>
 
 <p>In CSS&nbsp;2.2, each box has a position in three dimensions. In addition
@@ -2164,10 +2208,10 @@ particularly relevant when boxes overlap visually. This section
 discusses how boxes may be positioned along the z-axis.
 </p>
 <p>
-The order in which the rendering tree is painted onto the canvas is 
-described in terms of stacking contexts. Stacking contexts can 
-contain further stacking contexts. A stacking context is atomic from 
-the point of view of its parent stacking context; boxes in other 
+The order in which the rendering tree is painted onto the canvas is
+described in terms of stacking contexts. Stacking contexts can
+contain further stacking contexts. A stacking context is atomic from
+the point of view of its parent stacking context; boxes in other
 stacking contexts may not come between any of its boxes.
 </p>
 <p>Each box belongs to one <a name="x44"><span class="index-def" title="stacking
@@ -2183,11 +2227,11 @@ are stacked back-to-front according to document tree order.
 </p>
 
 <p>
-The root element forms the root stacking context. Other stacking 
-contexts are generated by any positioned element (including 
-relatively positioned elements) having a computed value of 'z-index' 
-other than 'auto'. Stacking contexts are not necessarily related to 
-containing blocks. In future levels of CSS, other properties may 
+The root element forms the root stacking context. Other stacking
+contexts are generated by any positioned element (including
+relatively positioned elements) having a computed value of 'z-index'
+other than 'auto'. Stacking contexts are not necessarily related to
+containing blocks. In future levels of CSS, other properties may
 introduce stacking contexts, for example '<a
 href="http://www.w3.org/TR/css3-color/#transparency">opacity</a>'
 <a href="refs.html#ref-CSS3COLOR" rel="biblioentry" class="noxref"><span class="informref">[CSS3COLOR]</span></a>.
@@ -2243,22 +2287,22 @@ class="propinst-z-index">'z-index'</span></a> property.
   &lt;HEAD&gt;
     &lt;TITLE&gt;Z-order positioning&lt;/TITLE&gt;
     &lt;STYLE type="text/css"&gt;
-      .pile { 
-        position: absolute; 
-        left: 2in; 
-        top: 2in; 
-        width: 3in; 
-        height: 3in; 
+      .pile {
+        position: absolute;
+        left: 2in;
+        top: 2in;
+        width: 3in;
+        height: 3in;
       }
     &lt;/STYLE&gt;
   &lt;/HEAD&gt;
   &lt;BODY&gt;
     &lt;P&gt;
-      &lt;IMG id="image" class="pile" 
+      &lt;IMG id="image" class="pile"
            src="butterfly.png" alt="A butterfly image"
            style="z-index: 1"&gt;
 
-    &lt;DIV id="text1" class="pile" 
+    &lt;DIV id="text1" class="pile"
          style="z-index: 3"&gt;
       This text will overlay the butterfly image.
     &lt;/DIV&gt;
@@ -2267,7 +2311,7 @@ class="propinst-z-index">'z-index'</span></a> property.
       This text will be beneath everything.
     &lt;/DIV&gt;
 
-    &lt;DIV id="text3" class="pile" 
+    &lt;DIV id="text3" class="pile"
          style="z-index: 2"&gt;
       This text will underlay text1, but overlay the butterfly image
     &lt;/DIV&gt;
@@ -2278,7 +2322,7 @@ class="propinst-z-index">'z-index'</span></a> property.
 
 
 <p>This example demonstrates the notion of
-<em>transparency</em>. The default behavior of the background is to allow boxes behind it to be visible. 
+<em>transparency</em>. The default behavior of the background is to allow boxes behind it to be visible.
 In the example, each box transparently overlays the boxes below it. This
 behavior can be overridden by using one of the existing
 <a href="colors.html#background-properties">
@@ -2332,7 +2376,7 @@ semantics of the document language, these properties should in most
 cases be used only by designers of document type descriptions (DTDs),
 or authors of special documents. If a default style sheet specifies
 these properties, authors and users should not specify rules to
-override them. 
+override them.
 </p>
 <p>The HTML 4 specification ([HTML4], section 8.2) defines
 bidirectionality behavior for HTML elements. The style sheet
@@ -2381,10 +2425,10 @@ class="propinst-unicode-bidi">'unicode-bidi'</span></a> property's value
 must be 'embed' or 'override'.
 </p>
 <div class="note"><p>
-<em><strong>Note.</strong> 
+<em><strong>Note.</strong>
 The <a href="visuren.html#propdef-direction" class="noxref"><span class="propinst-direction">'direction'</span></a> property, when
 specified for table column elements, is not inherited by cells in the
-column since columns are not the ancestors of the cells in the document tree. 
+column since columns are not the ancestors of the cells in the document tree.
 Thus, CSS cannot easily capture the "dir" attribute inheritance rules described
 in <a href="refs.html#ref-HTML4" rel="biblioentry" class="noxref"><span class="normref">[HTML4]</span></a>, section 11.3.2.1.
 </em></p></div>
@@ -2425,8 +2469,8 @@ corresponds to adding a LRE (U+202A; for 'direction: ltr') or RLE
 
 <dd>
 For inline elements this creates an override.
-For block container elements 
-this creates an override for inline-level descendants not within 
+For block container elements
+this creates an override for inline-level descendants not within
 another block container
 element.
 This means that inside the element, reordering is strictly in sequence
@@ -2465,9 +2509,9 @@ right-to-left), more inline boxes (including anonymous inline boxes)
 may have to be created, and some inline boxes may have to be split up
 and reordered before flowing.
 </p>
-<p>Because the Unicode algorithm has a limit of 
-<em title="According to unicode 3.0, chapter 3, section 12, definition BD2. 
-Specifically, page 58 here: http://www.unicode.org/unicode/uni2book/ch03.pdf" 
+<p>Because the Unicode algorithm has a limit of
+<em title="According to unicode 3.0, chapter 3, section 12, definition BD2.
+Specifically, page 58 here: http://www.unicode.org/unicode/uni2book/ch03.pdf"
 >61 levels</em> of
 embedding, care should be taken not to use <a href="visuren.html#propdef-unicode-bidi" class="noxref"><span
 class="propinst-unicode-bidi">'unicode-bidi'</span></a> with a value other
@@ -2487,7 +2531,7 @@ should not be overridden by other style sheets so that the document
 language's or DTD's bidi behavior is preserved.
 </p>
 <div class="example"><P style="display:none">Example(s):</P><p>
-In this example, 
+In this example,
 lowercase letters stand for inherently left-to-right characters and
 uppercase letters represent inherently right-to-left characters:
 </p>
@@ -2509,7 +2553,7 @@ writing direction. This is the style sheet:</p>
 <pre class="example">
 /* Rules for bidi */
 HEBREW, HE-QUO  {direction: rtl; unicode-bidi: embed}
-ENGLISH         {direction: ltr; unicode-bidi: embed} 
+ENGLISH         {direction: ltr; unicode-bidi: embed}
 
 /* Rules for presentation */
 HEBREW, ENGLISH, PAR  {display: block}
